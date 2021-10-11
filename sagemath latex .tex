@@ -1,0 +1,480 @@
+documentclass{article}
+% set font encoding for PDFLaTeX, XeLaTeX, or LuaTeX
+\usepackage{ifxetex,ifluatex}
+\usepackage[utf8]{inputenc}
+\usepackage[english, russian]{babel}
+\usepackage[T1, T2A]{fontenc}
+\if\ifxetex T\else\ifluatex T\else F\fi\fi T%
+  \usepackage{fontspec}
+\else
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{lmodern}
+\fi
+
+\usepackage{hyperref}
+
+\title{Курсовая}
+\author{Чернова Анастасия}
+
+% Enable SageTeX to run SageMath code right inside this LaTeX file.
+% http://doc.sagemath.org/html/en/tutorial/sagetex.html
+% \usepackage{sagetex}
+
+% Enable PythonTeX to run Python – https://ctan.org/pkg/pythontex
+\usepackage{sagetex}
+
+\begin{document}
+\maketitle
+\newpage
+\section{задача, вариант27}
+\begin {sagesilent}
+x = var('x')
+y(x) = (arctan(sqrt(x)))^x
+plot.options["ymin"]=0
+plot.options["ymax"]=15
+p = plot(y,(0,15))
+chet = y(-x).simplify()!=y(x).simplify()
+no_chet = y(-x).simplify()!=-y(x).simplify()
+chet_b = bool(y(-x).simplify()!=y(x).simplify())
+no_chet_b = bool(y(-x).simplify()!=-y(x).simplify())
+T = var('T')
+period = (arctan(sqrt(x-T)))^(x-T)!= (arctan(sqrt(x+T)))^(x+T)
+p1 = plot(y,(-15,15))+ point((0,1),size = 40, color = 'green')
+dy = y(x).derivative()
+dy2=dy(x).derivative()
+root = find_root(dy,0,2)
+p_dy = plot(dy,(-15,15))
+p_dy2 = plot(dy2,(-15,15))
+l_i = limit(y(x), x=oo)
+l_z = limit(y(x), x=0)
+l_ass = limit(y(x)/x, x = oo)
+p3 = plot(0, xmin = 0, xmax = 2, axes = False,aspect_ratio = 0.05)+point((0,0), color = 'green', size = 40, zorder = 10)+text(r"+", (1, 1), color = 'black', fontsize = 20)+text("0",(0,2), color = 'red', fontsize = 13)
+p4 = plot(0, xmin = 0, xmax = 2, axes = False, aspect_ratio = 0.05)+point((0,0), color = 'green', size = 40, zorder = 10)+text(chr(92), (0.35, 1), color = 'black',fontsize = 20)+point((root, 0), color = 'green', size = 40, zorder = 10)+text("/", (1.2, 1), color = 'black',fontsize = 20)+text("/", (1.2, 1), color = 'black',fontsize = 20)+text(str(numerical_approx(root, digits =2)),(0.7,1), color = 'red', fontsize = 13)+text("0",(0,1), color = 'red', fontsize = 13)
+l_b=bool(limit(y, x =+0)==limit(y, x = -0))
+\end{sagesilent}
+\large $\sage{(y(x))}$
+
+график от 0 до 15
+
+\begin{center}
+\sageplot[scale=0.8]{p}
+\end{center}
+\large $\sage{(chet)}$
+
+\large $\sage{(no_chet)}$
+
+\large $\sage{(chet_b)}$
+
+не является четной
+
+\large $\sage{(no_chet_b)}$
+
+
+не является нечетной
+
+\large $\sage{(period)}$
+
+не является периодической
+
+точка пересечения с осью Y
+x =
+\large $\sage{(y(0))}$
+\begin{center}
+\sageplot[scale=0.8]{p1}
+\end{center}
+первая производная
+\large $\sage{(dy(x))}$
+вторая производная\\
+\scalebox{.7}{$\sage{(dy2(x))}$}
+точка экстремума и значение функции в этой точке
+\large $\sage{(round(root,4))}$ $\sage{(round(y(root),4))}$
+\begin{center}
+\sageplot[scale=0.7]{p_dy}
+\end{center}
+\begin{center}
+\sageplot[scale=0.7]{p_dy2}
+\end{center}
+$\lim_{x\to\infty} y(x)=$ $\sage{(l_i)}$
+$\lim_{x\to 0} y(x)=$ $\sage{(l_z)}$
+$\lim_{x\to\infty} y(x)/x=$ $\sage{(l_ass)}$\\
+нет ассимптот\\
+промежутки знакопостоянства
+\begin{center}
+\sageplot[scale=0.7]{p3}
+\end{center}
+промежутки возрастания и убывания
+\begin{center}
+\sageplot[scale=0.7]{p4}
+\end{center}
+$\lim_{x\to +0} y(x)$=$\lim_{x\to-0} y(x)=$1
+\large $\sage{(l_b)}$
+точек разрыва нет
+\section{задача}
+\begin {sagesilent}
+matr = matrix(QQ,3,3,[1,2,3,2,4,6,3,1,-1]);matr
+b = vector([4,3,1])
+delta_1=copy(matr)
+delta_2=copy(matr)
+delta_3=copy(matr)
+delta_1[:,0] = b
+delta_2[:,1] = b
+delta_3[:,2] = b
+d = matr.det()
+expand_matr=matrix(QQ,3,4,[1,2,3,4,2,4,6,3,3,1,-1,1]);matr
+step = expand_matr.echelon_form()
+ex_r = expand_matr.rank()
+m_r = matr.rank()
+\end {sagesilent}
+Начальная матрица A =$\sage{(matr)}$\\
+столбец свободных членов b =$\sage{(b)}$\\
+ищем дельты\\
+$\Delta$1 = $\sage{(delta_1)}$
+$\Delta$2 = $\sage{(delta_2)}$
+$\Delta$3 = $\sage{(delta_3)}$\\
+определитель начальной матрицы\\
+$\Delta$ = $\sage{(d)}$
+невозмжно решить методом Крамера\\
+Метод гаусса\\
+расширенная матрица
+$\sage{(expand_matr)}$
+ступенчатая форма
+$\sage{(step)}$
+x1-x3=0
+x2+x3=0
+0=1
+решений нет\\
+Ранг матрицы системы = $\sage{(m_r)}$ ранг матрицы системы=$\sage{(ex_r)}$\\
+Они не равны, значит, по теореме Кронеккера-Капелли система несовместна
+\section{задача}
+\begin {sagesilent}
+A_matr= matrix(QQ,3,3,[-2,4,-6,-1,0,-2,4,4,2]);A_matr
+B_matr=matrix(3,3,[2,8,-9,-1,1,4,1,0,2]);B_matr
+
+\end{sagesilent}
+исходные матрицы матричного уравнения\\
+A =$\sage{(A_matr)}$\\
+B =$\sage{(B_matr)}$\\
+матричное уравнение\\
+$\frac{1}{2}$X$\mathbf{(A)}^T$=$2B^2$\\
+\begin {sagesilent}
+A_matr=(1/2)*A_matr.transpose()
+B_matr= 2*B_matr^2
+x=B_matr*A_matr.inverse()
+\end{sagesilent}
+приведем к виду XA=B\\
+X$\sage{(A_matr)}$=$\sage{(B_matr)}$\\
+$X = B{A}^{-1}$\\
+Решение матричного уравнения\\
+X =$\sage{(x)}$
+\section{задача вариант 27}
+\begin {sagesilent}
+x = var('x')
+eq = 7*x^3-4*x^2+5*x-3==0
+poly = 7*x^3-4*x^2+5*x-3
+y = var('y')
+eq_ins=(eq.subs(x==y+4/(3*7)).expand())
+p = 89/147
+q = -2837/9261
+Q=(p/3)^3+(q/2)^2
+a=((-q/2+Q^(1/2))^(1/3)).n(digits=3)
+b = -(abs(-q/2-sqrt(Q))^(1/3)).n(digits = 3)
+y1 = a+b+(4/21)
+y2 = -(a+b)/2+4/(3*7)-i*(a-b)/2*1.732
+y3 =-(a+b)/2+4/(3*7)+i*(a-b)/2*1.732
+p5 = plot(7*x^3-4*x^2+5*x-3, ymin = -15)+point((y1,0), size = 22, color = 'red')
+phi_1 = atan2(y2.imag(), y2.real())
+r_1 = y2.abs()
+y_trig_1 = r_1*(cos(phi_1, hold=True) + I*sin(phi_1, hold=True))
+phi_2 = atan2(y3.imag(), y3.real())
+r_2 = y3.abs()
+y_trig_2 = r_2*(cos(phi_2, hold=True) + I*sin(phi_2, hold=True))
+y_exp_1 = r_1*exp(i*phi_1, hold = True)
+y_exp_2 = r_2*exp(i*phi_2, hold = True)
+\end{sagesilent}
+\large $\sage{(eq)}$\\
+пoдстановка \large x = y - $\frac{b}{3a}$\\
+\large $\sage{(eq_ins)}$\\
+p = $\frac{89}{147}$
+q = $\frac{-2837}{9261}$\\
+\large Q = $(\frac{p}{3})^3$+$(\frac{q}{2})^2$\\
+Q = \large $\sage{(Q)}$\\
+a = \large $\sage{(a)}$\\
+b = \large $\sage{(b)}$\\
+y1 = \large $\sage{(y1)}$\\
+y2 = \large $\sage{(y2)}$\\
+y3 = \large $\sage{(y3)}$
+\begin{center}
+\sageplot[scale=0.7]{p5}
+\end{center}
+тригнометрическая форма y2: \large $\sage{(y_trig_1)}$\\
+тригонометрическая форма y3: \large $\sage{(y_trig_2)}$\\
+экспоненциальная форма y2: \large $\sage{(y_exp_1)}$\\
+экспоненциальная форма y3: \large $\sage{(y_exp_2)}$\\
+\section{задача вариант 27}
+\begin {sagesilent}
+x = var('x')
+eq = x^4 - 2*x^3 + 3*x^2 - 7*x + 1
+var("y")
+eq_rep = eq.subs(x==y+1/2).expand()
+pqr = {'p':3/2, 'q': -5, 'r': -31/16}
+var("s p q r")
+eq_s = 2*s^3 - p*s^2 - 2*r*s + r*p - q^2/4
+eq_s_n = eq_s(**pqr)
+sols = solve(eq_s_n, s)
+s_0 = sols[2].rhs()
+var("y s p q")
+poly_y_1 = y**2 - y*sqrt(2*s - p) + q/(2*sqrt(2*s - p)) + s
+poly_y_2 = y**2 + y*sqrt(2*s - p) - q/(2*sqrt(2*s - p)) + s
+poly_y_1_n = poly_y_1(**pqr, s=s_0)
+poly_y_2_n = poly_y_2(**pqr, s=s_0)
+sols = solve(poly_y_1_n, y)
+sols.extend(solve(poly_y_2_n, y))
+phi_1 = atan2((sols[2].rhs().n(digits=5)+0.5).imag(), (sols[2].rhs().n(digits=5)+0.5).real())
+r_1 = (sols[2].rhs().n(digits=5)+0.5).abs()
+x_trig_1 = r_1*(cos(phi_1, hold=True) + I*sin(phi_1, hold=True))
+phi_2 = atan2((sols[3].rhs().n(digits=5)+0.5).imag(), (sols[3].rhs().n(digits=5)+0.5).real())
+r_2 = (sols[3].rhs().n(digits=5)+0.5).abs()
+x_trig_2 = r_2*(cos(phi_2, hold=True) + I*sin(phi_2, hold=True))
+x_exp_1 = r_1*exp(i*phi_1, hold = True)
+x_exp_2 = r_2*exp(i*phi_2, hold = True)
+p14 = plot(x^4 - 2*x^3 + 3*x^2 - 7*x + 1, ymin = -5, xmax = 5)+point(((sols[0].rhs().n(digits=5)+0.5),0), size = 22, color = 'red')+point(((sols[1].rhs().n(digits=5)+0.5),0), size = 22, color = 'red')
+\end {sagesilent}
+$\sage{(eq)}$
+замена
+x = y-$\frac{a}{4}$\\
+$\sage{(eq_rep)}$\\
+p = $\frac{3}{2}$ q = -5 r = -$\frac{31}{16}$\\
+резольвента $\sage{(eq_s_n)}$\\
+найдем ненулевое решение и получим квадратные уравнения:\\
+$\sage{(poly_y_1)}$\\
+$\sage{(poly_y_2)}$\\
+Подставим в них найденное решение и решим эти уравнения:\\
+$x_1$ = $\sage{(sols[0].rhs().n(digits=5) +0.5)}$ $x_2$ = $\sage{(sols[1].rhs().n(digits=5) +0.5)}$ $x_3$ = $\sage{(sols[2].rhs().n(digits=5) +0.5)}$ $x_4$ = $\sage{(sols[3].rhs().n(digits=5) +0.5)}$\\
+корни в тригонометрической и экспоненциальных формах\\
+$\sage{(x_trig_1)}$\\
+$\sage{(x_trig_2)}$\\
+$\sage{(x_exp_1)}$\\
+$\sage{(x_exp_2)}$\\
+график с корнями
+\begin{center}
+\sageplot[scale=0.7]{p14}
+\end{center}
+\section{задача}
+\begin {sagesilent}
+f(x) = -6*x^5+41*x^4-53*x^3+15*x^2-7*x+4
+g(x) = 14*x^5-13*x^4+10*x^3+4*x^2-24*x+9
+r = f.maxima_methods().divide(g)
+tmp_1 = r[0]
+if r[1]!=0:
+    r = g.maxima_methods().divide(r[1])
+    tmp_2=r[0]
+else:
+    tmp = f(x)
+while r[1]!=0:
+    tmp = r[1]
+    r=tmp.maxima_methods().divide(r[1])
+tmp_raz = f*tmp_2+g*(1+tmp_1*tmp_2)
+gcd_res = gcd(f,g)
+\end{sagesilent}
+исходные многочлены\\
+f(x) = \large $\sage{(f(x))}$\\
+g(x) = \large $\sage{(g(x))}$\\
+НОД = \large $\sage{(tmp)}$\\
+НОД через gcd()
+\large $\sage{(gcd_res(x))}$\\
+разложение по тождеству Безу:\\
+\large $\sage{(tmp)}$ = \large $\sage{(tmp_raz(x))}$\\
+\section{задача вариант 27}
+\begin {sagesilent}
+A=matrix(3,3,[5,4,-2,-2,2,5,1,3,4])
+E = matrix(3,3,[1,1,0,0,1,1,1,0,1])
+A1 = E.inverse()*A*E
+
+char_A =A.charpoly()
+char_A1=A1.charpoly()
+char_r = x^3-11*x^2+33*x-33==0
+y = var('y')
+eq_ins=(char_r.subs(x==y+11/3)).expand()
+show(eq_ins)
+p = -22/3
+q = -286/27
+Q=(p/3)^3+(q/2)^2
+show(Q)
+a=((-q/2+Q^(1/2))^(1/3)).n(digits=4)
+b = (abs(-q/2-sqrt(Q))^(1/3)).n(digits = 4)
+y1 = a+b+11/3
+y2 = -(a+b)/2+11/3-i*(a-b)/2*1.732
+y3 =-(a+b)/2+11/3+i*(a-b)/2*1.732
+A_y1=matrix(3,3,[5/2-y1,13/2,1,1/2,5/2-y1,1,5/2,-5/2,6-y1])
+ech_1= A_y1.echelon_form()
+A_y2=matrix(3,3,[(5/2-y2),13/2,1,1/2,(5/2-y2),1,5/2,-5/2,(6-y2)])
+ech_2= A_y2.echelon_form()
+A_y3=matrix(3,3,[(5/2-y3),13/2,1,1/2,(5/2-y3),1,5/2,-5/2,(6-y3)])
+ech_3= A_y3.echelon_form()
+\end {sagesilent}
+исходная матрица преобразования
+A = \large $\sage{(A)}$\\
+базис
+E = \large $\sage{(E)}$\\
+формула перехода к другому базису\\
+$A1={E}^{-1}AE$\\
+матрица преобрзования в новом базисе\\
+A1 = \large $\sage{(A1)}$\\
+полином А: \large $\sage{(char_A)}$\\
+полином А1: \large $\sage{(char_A1)}$\\
+характеристические многочлены равны\\
+корни характеристического многочлена:\\
+y1 = \large $\sage{(y1)}$
+y2 = \large $\sage{(y2)}$
+y3 = \large $\sage{(y3)}$\\
+матрицы с корнями\\
+\large $\sage{(A_y1)}$\\
+\large $\sage{(A_y2)}$\\
+\large $\sage{(A_y3)}$\\
+собственный вектор (0,0,0)
+\section{задача}
+\begin {sagesilent}
+y = var('y')
+z=var('z')
+x = var('x')
+f(x,y,z) = 8*x^2-4*y^2+3*z^2-2*x*y+2*x*z-2*y*z+7*x+8*y+9*z-10
+p6 = implicit_plot3d(f,(x,-5,5), (y,-5,5), (z,-5,5))
+A = matrix(3,3,[8,-1,1,-1,-4,-1,1,-1,3]);A
+eig = A.eigenvalues()
+t1 = 7
+t2 = -23
+beta=A.det()
+B = matrix(4,4,[8,-1,1,7/2,-1,-4,-1,4,1,-1,3,9/2,7/2,4,9/2,-10]);B
+d = B.det()
+a = -d/((eig[1].n(digits = 4))*beta)
+b = -d/((eig[2].n(digits = 4))*beta)
+c = d/((eig[0].n(digits = 4))*beta)
+eq = (x^2)/a+(y^2)/b-(z^2)/c==1
+p16 = implicit_plot3d(eq,(x,-5,5), (y,-5,5), (z,-5,5))
+\end{sagesilent}
+\large $\sage{(f(x,y,z))}$
+\begin{center}
+\sageplot[scale=0.6]{p6}
+\end{center}
+составим матрицу коэффициентов:
+\large $\sage{(A)}$\\
+собственные значения
+$\sage{(eig[0].n(digits = 4))}$ $\sage{(eig[1].n(digits = 4))}$ $\sage{(eig[2].n(digits = 4))}$\\
+$t_1 = 7  t_2 = -23 beta = -101$\\
+расширенная матрица коэффициентов
+$\sage{(B)}$\\
+d = $\sage{(d)}$\\
+$beta != 0$ $t_2<0$ $d>0$ значит это однополостный гиперболоид\\
+коэффициенты в каноническом виде\\
+$a^2$ = $\sage{(a)}$
+$b^2$ = $\sage{(b)}$
+$c^2$ = $\sage{(c)}$\\
+уравнение в каноническом виде\\
+$\sage{(eq)}$
+\begin{center}
+\sageplot[scale=0.6]{p16}
+\end{center}
+\section{задача вариант 27}
+\begin {sagesilent}
+f(x)= x^2*ln(x)
+p8=plot(x^2*ln(x), x, (0, 3),ymax=3, color = 'green')+plot(x^2*ln(x), x, (1, 2),ymax=3,fill = True, fillcolor = 'pink', color='green')+parametric_plot((1,x),(x,0,3), linestyle = '--', color = 'red', ymax = 3)+parametric_plot((2,x),(x,0,3), linestyle = '--', color = 'red', ymax =3)
+num =numerical_integral(x^2*ln(x),1, 2)
+def trap(a,b,n, f,p):
+    width= (b-a)/n
+    integral = 0
+    i =0
+    tmp=p
+    while i < n:
+        x1 = a + i*width
+        x2 = a + (i+1)*width
+        pol = polygon([[x1,0],[x1, f(x1)], [x2, f(x2)],[x2,0]], color = 'orange',thickness=4,fill=False)
+        i=i+1
+        integral += 1/2*(x2-x1)*(f(x1) + f(x2))
+        t = text(r"i={}, curr_square={}, result={}".format(str(i), str(1/2*(x2-x1)*(f(x1) + f(x2)).n(digits=3)),str(numerical_approx(integral).n(digits =3))),(-2,0.5), fontsize=11, color="black")
+        (p+pol+tmp+t).show()
+        p9 = p+pol+tmp+t
+        tmp = tmp+pol
+    return [integral, p9]
+integ_1,p9 = trap(1,2,6 ,f(x),p8)
+
+def rect(a,b,n,f, p):
+    h = (b-a)/n
+    integral = 0
+    x2 =a
+    i=0
+    tmp = p
+    while(i<n):
+        x1 = x2 + h/2;#я беру середину прямоугольника, говорят, так быстрее считается
+        x2 = x2 + h;
+        integral += f(x1)*h;
+        pol = polygon([[x1,0],[x1, f(x1)], [x2, f(x1)],[x2,0]], color = 'orange',thickness=4,fill=False)
+        i=i+1
+        t = text(r"i={}, curr_square={}, result={}".format(str(i), str((f(x1)*h).n(digits=3)),str(numerical_approx(integral).n(digits =3))),(-2,0.5), fontsize=11, color="black")
+        show(p+pol+tmp+t)
+        p10 = p+pol+tmp+t
+        tmp = tmp+pol
+    return [integral, p10]
+integ_2, p10 = rect(1,2,6,f(x),p8)
+\end {sagesilent}
+Функция: 
+\large $\sage{(f(x))}$
+Площадь под графиком:\\
+\begin{center}
+\sageplot[scale=0.9]{p8}
+\end{center}
+возмем просто интеграл:\\
+$\int_{1}^{2}$ $\sage{(f(x))}$
+dx = $\sage{(num[0])}$\\
+\begin{center}
+\sageplot[scale=0.9]{p9}
+\end{center}
+интеграл методом трапеций:
+$\sage{(integ_1.n(digits = 5))}$
+\begin{center}
+\sageplot[scale=0.9]{p10}
+\end{center}
+интеграл методом прямоугольников:
+$\sage{(integ_2.n(digits = 5))}$
+\section{задача вариант 27}
+\begin {sagesilent}
+x = var('x')
+f(x)=(3*sin(x))^2+2*(2*sin(2*x))^3-9*x
+p11 =plot(f(x), x, (-10,10),ymax = 20,ymin = -20,color = 'green' )
+def nu(a, b, eps, f, p):
+    dx=f.derivative()
+    i=0
+    x = var('x')
+    d2x = dx.derivative()
+    if f.subs(x==a)*d2x.subs(x==a)>0:
+        x0 = a
+    else:
+        x0=b
+    while abs(f.subs(x==x0)/dx.subs(x==x0))>eps:
+        i+=0.1
+        p += plot(dx(x0)*(x-x0)+f(x0), x, (-10,10),color = (0.7,0.5+i,0.1+i))
+        x0 = x0-f.subs(x==x0)/dx.subs(x==x0)
+    p += plot(dx(x0)*(x-x0)+f(x0), x, (-10,10),color = (0.7+i,0.5,0.1+i))
+    p=p+point((x0,0), size =38, color = 'red', ymin = -20, xmin = -5)
+    return [x0, p]
+root, p12 = nu(1,2,0.1, f(x),p11)
+dx=f(x).derivative()
+sign = bool(f(2)*f(1)<0)
+\end {sagesilent}
+$\sage{(f(x))}$
+\begin{center}
+\sageplot[scale=0.9]{p11}
+\end{center}
+ищем корень на отрезке $[1,2]$ точность $0.1$\\
+x = $\sage{(root.n(digits = 4))}$
+\begin{center}
+\sageplot[scale=0.9]{p12}
+\end{center}
+проверим применимость метода на отрезке:\\
+производная функции $\sage{(dx)}$\\
+$show(find\_root(dx,1,2))$ здесь будет ошибка, потому что корня нет и значит функция монотонна на отрезке\\
+функция непрерывна и определена на отрезке[1;2]поскольку синусы и линейная функция непрерывны на области определения\\
+функция на кнцах отрезка имеет разные знаки\\
+$\sage {(f(1)*f(2))}<0$
+$\sage {(sign)}$
+\end{document}
